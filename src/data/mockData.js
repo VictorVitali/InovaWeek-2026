@@ -1,0 +1,113 @@
+export const categories = [
+  { id: 'medicamentos', label: 'Medicamentos', icon: 'Pill' },
+  { id: 'cuidados', label: 'Cuidados pessoais', icon: 'Sparkles' },
+  { id: 'saude', label: 'Saúde', icon: 'HeartPulse' },
+  { id: 'bebe', label: 'Mãe e bebê', icon: 'Baby' },
+  { id: 'ofertas', label: 'Ofertas', icon: 'BadgePercent' },
+];
+
+export const pharmacies = [
+  {
+    id: 'vida-rapida',
+    name: 'Farmácia Vida Rápida',
+    distance: '1,2 km',
+    deliveryTime: '22-32 min',
+    deliveryFee: 4.99,
+    rating: 4.8,
+  },
+  {
+    id: 'plantao-central',
+    name: 'Plantão Central',
+    distance: '2,4 km',
+    deliveryTime: '35-45 min',
+    deliveryFee: 6.9,
+    rating: 4.6,
+  },
+  {
+    id: 'bem-estar',
+    name: 'Drogaria Bem Estar',
+    distance: '3,1 km',
+    deliveryTime: '40-55 min',
+    deliveryFee: 5.5,
+    rating: 4.7,
+  },
+];
+
+export const products = [
+  {
+    id: 'dipirona-500',
+    name: 'Dipirona Sódica 500mg',
+    brand: 'Medley',
+    category: 'medicamentos',
+    pharmacyId: 'vida-rapida',
+    price: 8.9,
+    oldPrice: 11.5,
+    tag: 'Mais vendido',
+    description: 'Analgésico e antitérmico para alívio de dores e febre.',
+    prescription: false,
+  },
+  {
+    id: 'loratadina-10',
+    name: 'Loratadina 10mg',
+    brand: 'Neo Química',
+    category: 'medicamentos',
+    pharmacyId: 'vida-rapida',
+    price: 15.75,
+    oldPrice: 18.9,
+    tag: 'Entrega rápida',
+    description: 'Antialérgico para sintomas de rinite e urticária.',
+    prescription: false,
+  },
+  {
+    id: 'vitamina-c',
+    name: 'Vitamina C 1g',
+    brand: 'Cimed',
+    category: 'saude',
+    pharmacyId: 'bem-estar',
+    price: 24.9,
+    oldPrice: 29.9,
+    tag: 'Oferta',
+    description: 'Suplemento vitamínico com 30 comprimidos efervescentes.',
+    prescription: false,
+  },
+  {
+    id: 'protetor-solar',
+    name: 'Protetor Solar FPS 60',
+    brand: 'Needs',
+    category: 'cuidados',
+    pharmacyId: 'plantao-central',
+    price: 49.9,
+    oldPrice: 62.9,
+    tag: 'Dermocosmético',
+    description: 'Proteção facial de toque seco para uso diário.',
+    prescription: false,
+  },
+  {
+    id: 'fralda-premium',
+    name: 'Fralda Premium G',
+    brand: 'Huggies',
+    category: 'bebe',
+    pharmacyId: 'bem-estar',
+    price: 59.9,
+    oldPrice: 69.9,
+    tag: 'Pacote econômico',
+    description: 'Pacote com alta absorção e ajuste confortável.',
+    prescription: false,
+  },
+  {
+    id: 'termometro-digital',
+    name: 'Termômetro Digital',
+    brand: 'G-Tech',
+    category: 'saude',
+    pharmacyId: 'plantao-central',
+    price: 28.5,
+    oldPrice: 34.9,
+    tag: 'Essencial',
+    description: 'Medição rápida de temperatura com aviso sonoro.',
+    prescription: false,
+  },
+];
+
+export function getPharmacy(pharmacyId) {
+  return pharmacies.find((pharmacy) => pharmacy.id === pharmacyId);
+}
