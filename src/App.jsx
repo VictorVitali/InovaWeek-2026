@@ -29,6 +29,7 @@ const formatCurrency = (value) => value.toLocaleString('pt-BR', { style: 'curren
 const getCategoryLabel = (categoryId) => categories.find((category) => category.id === categoryId)?.label ?? 'Produtos';
 
 function Header({ activePage, cartCount, onNavigate, query, setQuery, selectedCategory, setSelectedCategory }) {
+  const logoSrc = `${import.meta.env.BASE_URL}logo.jpeg`;
   const tabs = [
     { page: 'home', label: 'Início' },
     { page: 'catalog', label: 'Medicamentos', category: 'medicamentos' },
@@ -41,7 +42,7 @@ function Header({ activePage, cartCount, onNavigate, query, setQuery, selectedCa
       <div className="topbar">
         <button className="brand" onClick={() => onNavigate('home')} type="button" aria-label="Ir para início">
           <span className="brand-mark" aria-hidden="true">
-            <img src="/logo.jpeg" alt="" />
+            <img src={logoSrc} alt="" />
           </span>
           <span>Farmácia Expressa</span>
         </button>
