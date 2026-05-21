@@ -13,6 +13,8 @@ test('AI assistant page presents upload, confirmation, and recommendation steps'
   expect(appSource).toContain('function AiAssistantPage');
   expect(appSource).toContain('Selecionar imagem');
   expect(appSource).toContain('Confirmar lista');
+  expect(appSource).toContain('Selecione uma imagem para a IA identificar os produtos');
+  expect(appSource).toContain('photoLoaded ? detectedProducts : []');
   expect(appSource).toContain('Melhor compra em uma farmácia');
   expect(appSource).toContain('Adicionar recomendação ao carrinho');
 });

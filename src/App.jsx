@@ -492,13 +492,18 @@ function AiAssistantPage({ onAddRecommendation }) {
           <p>2. Confirmar lista</p>
           <h2>{photoLoaded ? 'Produtos identificados' : 'Aguardando imagem'}</h2>
           <div className="ai-detected-list">
-            {detectedProducts.map((product) => (
+            {(photoLoaded ? detectedProducts : []).map((product) => (
               <label key={product.id} className="ai-detected-item">
                 <input type="checkbox" checked={confirmedProductIds.includes(product.id)} onChange={() => toggleProduct(product.id)} disabled={!photoLoaded} />
                 <img src={`${import.meta.env.BASE_URL}${product.image}`} alt="" />
                 <span><strong>{product.name}</strong><small>{product.brand}</small></span>
               </label>
             ))}
+            {!photoLoaded && (
+              <div className="ai-detected-empty">
+                Selecione uma imagem para a IA identificar os produtos.
+              </div>
+            )}
           </div>
           <button type="button" disabled={!photoLoaded || !confirmedProductIds.length} onClick={() => setListConfirmed(true)}>Confirmar lista</button>
         </div>
