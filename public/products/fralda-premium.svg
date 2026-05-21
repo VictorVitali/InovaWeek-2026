@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-labelledby="title desc">
+  <title id="title">Pacote de Fralda Premium G</title>
+  <desc id="desc">Pacote verde e branco de fralda tamanho G.</desc>
+  <rect width="320" height="240" rx="28" fill="#f4fff8"/>
+  <g transform="translate(48 46)">
+    <rect width="224" height="132" rx="24" fill="#ffffff" stroke="#cce8d8" stroke-width="4"/>
+    <path d="M0 36c52 26 100 26 146 0s72-26 78-8v104H0Z" fill="#58bf7b"/>
+    <text x="24" y="48" fill="#2d7c4a" font-family="Arial, sans-serif" font-size="24" font-weight="700">FRALDA</text>
+    <text x="24" y="78" fill="#fff" font-family="Arial, sans-serif" font-size="24" font-weight="700">PREMIUM</text>
+    <circle cx="174" cy="72" r="34" fill="#e8fff0"/>
+    <text x="174" y="83" text-anchor="middle" fill="#2d7c4a" font-family="Arial, sans-serif" font-size="34" font-weight="700">G</text>
+  </g>
+</svg>

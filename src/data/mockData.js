@@ -45,6 +45,7 @@ export const products = [
     tag: 'Mais vendido',
     description: 'Analgésico e antitérmico para alívio de dores e febre.',
     prescription: false,
+    image: 'products/dipirona-500.svg',
   },
   {
     id: 'loratadina-10',
@@ -57,6 +58,7 @@ export const products = [
     tag: 'Entrega rápida',
     description: 'Antialérgico para sintomas de rinite e urticária.',
     prescription: false,
+    image: 'products/loratadina-10.svg',
   },
   {
     id: 'vitamina-c',
@@ -69,6 +71,7 @@ export const products = [
     tag: 'Oferta',
     description: 'Suplemento vitamínico com 30 comprimidos efervescentes.',
     prescription: false,
+    image: 'products/vitamina-c.svg',
   },
   {
     id: 'protetor-solar',
@@ -81,6 +84,7 @@ export const products = [
     tag: 'Dermocosmético',
     description: 'Proteção facial de toque seco para uso diário.',
     prescription: false,
+    image: 'products/protetor-solar.svg',
   },
   {
     id: 'fralda-premium',
@@ -93,6 +97,7 @@ export const products = [
     tag: 'Pacote econômico',
     description: 'Pacote com alta absorção e ajuste confortável.',
     prescription: false,
+    image: 'products/fralda-premium.svg',
   },
   {
     id: 'termometro-digital',
@@ -105,6 +110,7 @@ export const products = [
     tag: 'Essencial',
     description: 'Medição rápida de temperatura com aviso sonoro.',
     prescription: false,
+    image: 'products/termometro-digital.svg',
   },
 ];
 

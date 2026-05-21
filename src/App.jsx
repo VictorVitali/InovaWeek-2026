@@ -117,7 +117,7 @@ function ProductCard({ product, onAdd, onOpen }) {
   return (
     <article className="product-card">
       <button className="product-visual" type="button" aria-label={`Ver detalhes de ${product.name}`} onClick={() => onOpen(product)}>
-        <Pill size={38} />
+        <img src={`${import.meta.env.BASE_URL}${product.image}`} alt="" />
         <span>{product.tag}</span>
       </button>
       <div className="product-copy">

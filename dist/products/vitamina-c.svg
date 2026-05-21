@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-labelledby="title desc">
+  <title id="title">Tubo de Vitamina C 1g</title>
+  <desc id="desc">Tubo laranja de comprimidos efervescentes de Vitamina C.</desc>
+  <rect width="320" height="240" rx="28" fill="#fff8ee"/>
+  <g transform="translate(104 28)">
+    <rect x="28" y="18" width="84" height="174" rx="20" fill="#ff8a1d" stroke="#d86700" stroke-width="4"/>
+    <rect x="32" y="18" width="76" height="28" rx="12" fill="#ffffff" opacity=".92"/>
+    <circle cx="70" cy="103" r="42" fill="#fff3d9"/>
+    <text x="70" y="95" text-anchor="middle" fill="#d86700" font-family="Arial, sans-serif" font-size="24" font-weight="700">C</text>
+    <text x="70" y="120" text-anchor="middle" fill="#d86700" font-family="Arial, sans-serif" font-size="16" font-weight="700">1g</text>
+    <text x="70" y="161" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="15" font-weight="700">VITAMINA</text>
+  </g>
+</svg>

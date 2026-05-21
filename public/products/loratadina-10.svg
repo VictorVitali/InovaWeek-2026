@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-labelledby="title desc">
+  <title id="title">Embalagem de Loratadina 10mg</title>
+  <desc id="desc">Caixa azul e branca de Loratadina 10mg.</desc>
+  <rect width="320" height="240" rx="28" fill="#f2f8ff"/>
+  <g transform="translate(50 44)">
+    <rect width="220" height="142" rx="20" fill="#ffffff" stroke="#d7e4ef" stroke-width="4"/>
+    <path d="M0 0h220v56H0z" fill="#2f80d6"/>
+    <path d="M0 56h220v20H0z" fill="#82c9f4"/>
+    <text x="20" y="37" fill="#fff" font-family="Arial, sans-serif" font-size="25" font-weight="700">LORATADINA</text>
+    <text x="20" y="104" fill="#1d5f9c" font-family="Arial, sans-serif" font-size="22" font-weight="700">10mg</text>
+    <text x="20" y="127" fill="#607084" font-family="Arial, sans-serif" font-size="13">antialérgico</text>
+    <path d="M154 92c14-24 40-24 54 0-14 24-40 24-54 0Z" fill="#dff2ff" stroke="#2f80d6" stroke-width="5"/>
+    <circle cx="181" cy="92" r="9" fill="#2f80d6"/>
+  </g>
+</svg>
