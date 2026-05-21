@@ -407,12 +407,6 @@ function AccountPage({ authMode, accountName, setAuthMode, onSubmit }) {
           <p>{isLogin ? 'Acesse para acompanhar pedidos e acelerar seu checkout.' : 'Cadastre-se para salvar seus dados e receber ofertas da farmácia.'}</p>
         </div>
 
-        {accountName && (
-          <div className="auth-success" role="status">
-            Olá, {accountName}. Seu acesso foi simulado com sucesso.
-          </div>
-        )}
-
         <div className="auth-tabs" role="tablist" aria-label="Escolha entre entrar ou criar conta">
           <button type="button" className={isLogin ? 'active' : ''} onClick={() => setAuthMode('login')}>Entrar</button>
           <button type="button" className={!isLogin ? 'active' : ''} onClick={() => setAuthMode('register')}>Criar conta</button>
@@ -499,6 +493,7 @@ export default function App() {
     const email = String(form.get('email') || 'cliente@email.com');
     const name = mode === 'register' ? String(form.get('name') || 'Cliente') : email.split('@')[0];
     setAccountName(name.trim() || 'Cliente');
+    setPage('home');
   };
 
   return (

@@ -17,6 +17,12 @@ test('account page supports login and registration modes', () => {
   expect(appSource).toContain('Criar conta');
 });
 
+test('successful account submit returns to the home page without inline success message', () => {
+  expect(appSource).toContain("setPage('home')");
+  expect(appSource).not.toContain('auth-success');
+  expect(appSource).not.toContain('Seu acesso foi simulado com sucesso');
+});
+
 test('account page has dedicated styles', () => {
   expect(stylesSource).toContain('.account-page');
   expect(stylesSource).toContain('.auth-card');
