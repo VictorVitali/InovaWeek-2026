@@ -20,3 +20,12 @@ test('transparent logo is a PNG with alpha transparency', () => {
   expect(png.subarray(1, 4).toString('ascii')).toBe('PNG');
   expect(png.includes(Buffer.from('tRNS')) || png[25] === 6 || png[25] === 4).toBe(true);
 });
+
+test('transparent logo is cropped close to the visible logo', () => {
+  const png = readFileSync('public/logo-transparent.png');
+  const width = png.readUInt32BE(16);
+  const height = png.readUInt32BE(20);
+
+  expect(width).toBeLessThanOrEqual(1500);
+  expect(height).toBeLessThanOrEqual(520);
+});
