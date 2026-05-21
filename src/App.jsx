@@ -473,7 +473,6 @@ function AiAssistantPage({ onAddRecommendation }) {
         <div className="ai-scan-card" aria-hidden="true">
           <Camera size={42} />
           <span>Leitura visual</span>
-          <strong>3 itens detectados</strong>
         </div>
       </section>
 
