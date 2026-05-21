@@ -29,7 +29,7 @@ const formatCurrency = (value) => value.toLocaleString('pt-BR', { style: 'curren
 const getCategoryLabel = (categoryId) => categories.find((category) => category.id === categoryId)?.label ?? 'Produtos';
 
 function Header({ activePage, cartCount, onNavigate, query, setQuery, selectedCategory, setSelectedCategory }) {
-  const logoSrc = `${import.meta.env.BASE_URL}logo.jpeg`;
+  const logoSrc = `${import.meta.env.BASE_URL}logo-transparent.png`;
   const tabs = [
     { page: 'home', label: 'Início' },
     { page: 'catalog', label: 'Medicamentos', category: 'medicamentos' },
