@@ -3,6 +3,7 @@ import {
   BadgePercent,
   Baby,
   Bike,
+  Camera,
   CheckCircle2,
   ChevronRight,
   CreditCard,
@@ -15,14 +16,16 @@ import {
   Search,
   ShieldCheck,
   ShoppingCart,
+  Sparkle,
   Sparkles,
   Star,
   Trash2,
   UserRound,
 } from 'lucide-react';
-import { categories, getPharmacy, pharmacies, products } from './data/mockData';
+import { categories, getPharmacy, pharmacies, pharmacyOffers, products } from './data/mockData';
 import { getProductsForCategory } from './lib/catalog';
 import { addToCart, getCartSummary, getDeliveryTotal, removeFromCart, updateCartQuantity } from './lib/cart';
+import { buildAiRecommendations, getRecommendedPharmacyOffer } from './lib/aiRecommendation';
 
 const iconMap = { Pill, Sparkles, HeartPulse, Baby, BadgePercent };
 const formatCurrency = (value) => value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -35,6 +38,7 @@ function Header({ accountName, activePage, cartCount, onNavigate, query, setQuer
     { page: 'catalog', label: 'Medicamentos', category: 'medicamentos' },
     { page: 'catalog', label: 'Cuidados pessoais', category: 'cuidados' },
     { page: 'catalog', label: 'Ofertas', category: 'ofertas' },
+    { page: 'ai', label: 'IA da Receita' },
   ];
 
   return (
@@ -440,6 +444,110 @@ function AccountPage({ authMode, accountName, setAuthMode, onSubmit }) {
   );
 }
 
+function AiAssistantPage({ onAddRecommendation }) {
+  const detectedProductIds = ['dipirona-500', 'loratadina-10', 'vitamina-c'];
+  const [photoLoaded, setPhotoLoaded] = useState(false);
+  const [confirmedProductIds, setConfirmedProductIds] = useState(detectedProductIds);
+  const [listConfirmed, setListConfirmed] = useState(false);
+  const detectedProducts = detectedProductIds.map((productId) => products.find((product) => product.id === productId)).filter(Boolean);
+  const recommendations = buildAiRecommendations({ confirmedProductIds, pharmacies, pharmacyOffers, products });
+  const recommended = getRecommendedPharmacyOffer({ confirmedProductIds, pharmacies, pharmacyOffers, products });
+
+  const toggleProduct = (productId) => {
+    setConfirmedProductIds((currentIds) => (
+      currentIds.includes(productId)
+        ? currentIds.filter((id) => id !== productId)
+        : [...currentIds, productId]
+    ));
+    setListConfirmed(false);
+  };
+
+  return (
+    <main className="page-shell ai-page">
+      <section className="ai-hero-panel">
+        <div>
+          <span className="eyebrow"><Sparkle size={16} /> protótipo IA</span>
+          <h1>Fotografe uma receita e receba a melhor compra em uma farmácia.</h1>
+          <p>Este fluxo simula a futura IA: ela identifica os produtos, você confirma a lista e o app recomenda onde comprar tudo junto com o menor total incluindo entrega.</p>
+        </div>
+        <div className="ai-scan-card" aria-hidden="true">
+          <Camera size={42} />
+          <span>Leitura visual</span>
+          <strong>3 itens detectados</strong>
+        </div>
+      </section>
+
+      <section className="ai-flow-grid">
+        <div className="ai-upload-panel">
+          <p>1. Enviar foto</p>
+          <div className="ai-upload-box">
+            <Camera size={38} />
+            <strong>{photoLoaded ? 'Imagem recebida' : 'Receita, caixa ou produtos'}</strong>
+            <span>{photoLoaded ? 'A IA encontrou possíveis produtos na imagem.' : 'Use uma foto nítida para melhorar a identificação.'}</span>
+          </div>
+          <button type="button" onClick={() => setPhotoLoaded(true)}>Selecionar imagem</button>
+        </div>
+
+        <div className="ai-detected-panel">
+          <p>2. Confirmar lista</p>
+          <h2>{photoLoaded ? 'Produtos identificados' : 'Aguardando imagem'}</h2>
+          <div className="ai-detected-list">
+            {detectedProducts.map((product) => (
+              <label key={product.id} className="ai-detected-item">
+                <input type="checkbox" checked={confirmedProductIds.includes(product.id)} onChange={() => toggleProduct(product.id)} disabled={!photoLoaded} />
+                <img src={`${import.meta.env.BASE_URL}${product.image}`} alt="" />
+                <span><strong>{product.name}</strong><small>{product.brand}</small></span>
+              </label>
+            ))}
+          </div>
+          <button type="button" disabled={!photoLoaded || !confirmedProductIds.length} onClick={() => setListConfirmed(true)}>Confirmar lista</button>
+        </div>
+      </section>
+
+      <section className="ai-result-panel">
+        <div className="section-head">
+          <div>
+            <p>3. Melhor compra</p>
+            <h2>Melhor compra em uma farmácia</h2>
+          </div>
+        </div>
+
+        {listConfirmed && recommended ? (
+          <div className="ai-result-grid">
+            <article className="ai-recommendation-card">
+              <span>Recomendado</span>
+              <h3>Comprar tudo na {recommended.pharmacy.name}</h3>
+              <p>{recommended.pharmacy.distance} • {recommended.pharmacy.deliveryTime}</p>
+              <div className="ai-total-row"><span>Produtos</span><strong>{formatCurrency(recommended.subtotal)}</strong></div>
+              <div className="ai-total-row"><span>Entrega</span><strong>{formatCurrency(recommended.delivery)}</strong></div>
+              <div className="ai-total-row total"><span>Total</span><strong>{formatCurrency(recommended.total)}</strong></div>
+              <button type="button" onClick={() => onAddRecommendation(recommended.items)}>Adicionar recomendação ao carrinho</button>
+            </article>
+
+            <div className="ai-store-list">
+              {recommendations.map((recommendation) => (
+                <article key={recommendation.pharmacy.id}>
+                  <div>
+                    <strong>{recommendation.pharmacy.name}</strong>
+                    <small>{recommendation.items.length} produtos disponíveis</small>
+                  </div>
+                  <span>{formatCurrency(recommendation.total)}</span>
+                </article>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="ai-empty-result">
+            <PackageCheck size={34} />
+            <strong>Confirme a lista para ver farmácias compatíveis</strong>
+            <span>A recomendação considera todos os produtos selecionados e a entrega da farmácia.</span>
+          </div>
+        )}
+      </section>
+    </main>
+  );
+}
+
 export default function App() {
   const [page, setPage] = useState('home');
   const [query, setQuery] = useState('');
@@ -496,6 +604,11 @@ export default function App() {
     setPage('home');
   };
 
+  const addRecommendation = (items) => {
+    setCart((currentCart) => items.reduce((nextCart, item) => addToCart(nextCart, item), currentCart));
+    setPage('cart');
+  };
+
   return (
     <div>
       <Header accountName={accountName} activePage={page} cartCount={summary.itemCount} onNavigate={setPage} query={query} setQuery={setQuery} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
@@ -534,6 +647,7 @@ export default function App() {
       )}
       {page === 'checkout' && <CheckoutPage cart={cart} summary={summary} deliveryMethod={deliveryMethod} setDeliveryMethod={setDeliveryMethod} />}
       {page === 'account' && <AccountPage authMode={authMode} accountName={accountName} setAuthMode={setAuthMode} onSubmit={submitAccount} />}
+      {page === 'ai' && <AiAssistantPage onAddRecommendation={addRecommendation} />}
     </div>
   );
 }

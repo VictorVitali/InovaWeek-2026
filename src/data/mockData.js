@@ -33,6 +33,22 @@ export const pharmacies = [
   },
 ];
 
+export const pharmacyOffers = [
+  { productId: 'dipirona-500', pharmacyId: 'vida-rapida', price: 8.9 },
+  { productId: 'loratadina-10', pharmacyId: 'vida-rapida', price: 15.75 },
+  { productId: 'vitamina-c', pharmacyId: 'vida-rapida', price: 25.9 },
+  { productId: 'dipirona-500', pharmacyId: 'plantao-central', price: 9.4 },
+  { productId: 'loratadina-10', pharmacyId: 'plantao-central', price: 14.8 },
+  { productId: 'dipirona-500', pharmacyId: 'bem-estar', price: 8.6 },
+  { productId: 'loratadina-10', pharmacyId: 'bem-estar', price: 14.2 },
+  { productId: 'vitamina-c', pharmacyId: 'bem-estar', price: 23.7 },
+  { productId: 'protetor-solar', pharmacyId: 'plantao-central', price: 49.9 },
+  { productId: 'protetor-solar', pharmacyId: 'bem-estar', price: 52.5 },
+  { productId: 'fralda-premium', pharmacyId: 'bem-estar', price: 59.9 },
+  { productId: 'termometro-digital', pharmacyId: 'plantao-central', price: 28.5 },
+  { productId: 'termometro-digital', pharmacyId: 'vida-rapida', price: 30.9 },
+];
+
 export const products = [
   {
     id: 'dipirona-500',
