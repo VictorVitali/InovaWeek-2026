@@ -9,6 +9,8 @@ test('header brand uses only the logo image', () => {
 });
 
 test('header logo is sized as a full wordmark', () => {
-  expect(stylesSource).toContain('width: 12rem;');
-  expect(stylesSource).toContain('height: 3.5rem;');
+  expect(stylesSource).toContain('width: 13rem;');
+  expect(stylesSource).toContain('height: 3.75rem;');
+  expect(stylesSource).toContain('width: 92%;');
+  expect(stylesSource).toContain('height: 82%;');
 });
