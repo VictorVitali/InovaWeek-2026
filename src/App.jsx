@@ -38,7 +38,7 @@ function Header({ accountName, activePage, cartCount, onNavigate, query, setQuer
     { page: 'catalog', label: 'Medicamentos', category: 'medicamentos' },
     { page: 'catalog', label: 'Cuidados pessoais', category: 'cuidados' },
     { page: 'catalog', label: 'Ofertas', category: 'ofertas' },
-    { page: 'ai', label: 'IA da Receita' },
+    { page: 'ai', label: 'IA' },
   ];
 
   return (
