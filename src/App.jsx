@@ -44,7 +44,6 @@ function Header({ activePage, cartCount, onNavigate, query, setQuery, selectedCa
           <span className="brand-mark" aria-hidden="true">
             <img src={logoSrc} alt="" />
           </span>
-          <span>Farmácia Expressa</span>
         </button>
 
         <label className="search-box">
