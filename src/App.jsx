@@ -28,7 +28,7 @@ const iconMap = { Pill, Sparkles, HeartPulse, Baby, BadgePercent };
 const formatCurrency = (value) => value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 const getCategoryLabel = (categoryId) => categories.find((category) => category.id === categoryId)?.label ?? 'Produtos';
 
-function Header({ activePage, cartCount, onNavigate, query, setQuery, selectedCategory, setSelectedCategory }) {
+function Header({ accountName, activePage, cartCount, onNavigate, query, setQuery, selectedCategory, setSelectedCategory }) {
   const logoSrc = `${import.meta.env.BASE_URL}logo-transparent.png`;
   const tabs = [
     { page: 'home', label: 'Início' },
@@ -58,9 +58,9 @@ function Header({ activePage, cartCount, onNavigate, query, setQuery, selectedCa
         </label>
 
         <div className="header-actions">
-          <button type="button" className="icon-action" aria-label="Entrar na conta">
+          <button type="button" className="icon-action" aria-label="Entrar na conta" onClick={() => onNavigate('account')}>
             <UserRound size={19} />
-            <span>Entrar</span>
+            <span>{accountName || 'Entrar'}</span>
           </button>
           <button type="button" className="icon-action cart-pill" aria-label={`Abrir carrinho com ${cartCount} itens`} onClick={() => onNavigate('cart')}>
             <ShoppingCart size={19} />
@@ -395,6 +395,57 @@ function OrderSummary({ summary, disabled, buttonLabel, onClick }) {
   );
 }
 
+function AccountPage({ authMode, accountName, setAuthMode, onSubmit }) {
+  const isLogin = authMode === 'login';
+
+  return (
+    <main className="page-shell account-page">
+      <section className="auth-card" aria-labelledby="account-title">
+        <div className="auth-intro">
+          <span>Minha conta</span>
+          <h1 id="account-title">{isLogin ? 'Entrar na conta' : 'Criar conta'}</h1>
+          <p>{isLogin ? 'Acesse para acompanhar pedidos e acelerar seu checkout.' : 'Cadastre-se para salvar seus dados e receber ofertas da farmácia.'}</p>
+        </div>
+
+        {accountName && (
+          <div className="auth-success" role="status">
+            Olá, {accountName}. Seu acesso foi simulado com sucesso.
+          </div>
+        )}
+
+        <div className="auth-tabs" role="tablist" aria-label="Escolha entre entrar ou criar conta">
+          <button type="button" className={isLogin ? 'active' : ''} onClick={() => setAuthMode('login')}>Entrar</button>
+          <button type="button" className={!isLogin ? 'active' : ''} onClick={() => setAuthMode('register')}>Criar conta</button>
+        </div>
+
+        <form className="auth-form" onSubmit={(event) => onSubmit(event, authMode)}>
+          {!isLogin && (
+            <label>
+              Nome completo
+              <input name="name" type="text" autoComplete="name" placeholder="Maria Silva" required={!isLogin} />
+            </label>
+          )}
+          <label>
+            E-mail
+            <input name="email" type="email" autoComplete="email" placeholder="voce@email.com" required />
+          </label>
+          {!isLogin && (
+            <label>
+              Telefone
+              <input name="phone" type="tel" autoComplete="tel" placeholder="(11) 99999-9999" required={!isLogin} />
+            </label>
+          )}
+          <label>
+            Senha
+            <input name="password" type="password" autoComplete={isLogin ? 'current-password' : 'new-password'} placeholder="Digite sua senha" required />
+          </label>
+          <button type="submit">{isLogin ? 'Entrar' : 'Criar conta'}</button>
+        </form>
+      </section>
+    </main>
+  );
+}
+
 export default function App() {
   const [page, setPage] = useState('home');
   const [query, setQuery] = useState('');
@@ -404,6 +455,8 @@ export default function App() {
   const [sortBy, setSortBy] = useState('delivery');
   const [fastOnly, setFastOnly] = useState(false);
   const [deliveryMethod, setDeliveryMethod] = useState('fast');
+  const [authMode, setAuthMode] = useState('login');
+  const [accountName, setAccountName] = useState('');
 
   const filteredProducts = useMemo(() => {
     const result = products.filter((product) => {
@@ -440,9 +493,17 @@ export default function App() {
     setPage('detail');
   };
 
+  const submitAccount = (event, mode) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const email = String(form.get('email') || 'cliente@email.com');
+    const name = mode === 'register' ? String(form.get('name') || 'Cliente') : email.split('@')[0];
+    setAccountName(name.trim() || 'Cliente');
+  };
+
   return (
     <div>
-      <Header activePage={page} cartCount={summary.itemCount} onNavigate={setPage} query={query} setQuery={setQuery} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+      <Header accountName={accountName} activePage={page} cartCount={summary.itemCount} onNavigate={setPage} query={query} setQuery={setQuery} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
       {page === 'home' && (
         <HomePage
           featuredProducts={products}
@@ -477,6 +538,7 @@ export default function App() {
         />
       )}
       {page === 'checkout' && <CheckoutPage cart={cart} summary={summary} deliveryMethod={deliveryMethod} setDeliveryMethod={setDeliveryMethod} />}
+      {page === 'account' && <AccountPage authMode={authMode} accountName={accountName} setAuthMode={setAuthMode} onSubmit={submitAccount} />}
     </div>
   );
 }
